@@ -33,7 +33,7 @@ class KorgeViewController: GLKViewController {
   }
   
   private func setupGL() {
-    context = EAGLContext(api: .openGLES2)
+    context = GLContext.shared
     EAGLContext.setCurrent(context)
 
     if let view = self.view as? GLKView, let context = context {

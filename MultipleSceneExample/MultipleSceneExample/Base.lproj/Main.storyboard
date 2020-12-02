@@ -23,28 +23,26 @@
                                     <constraint firstAttribute="width" secondItem="2RU-Yf-5iK" secondAttribute="height" multiplier="16:9" id="L5W-4J-LeQ"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8zX-1Y-z8X">
-                                <rect key="frame" x="0.0" y="609" width="414" height="233"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="8zX-1Y-z8X" secondAttribute="height" multiplier="16:9" id="mSR-JY-k8B"/>
-                                </constraints>
-                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kAc-lE-DXV">
+                                <rect key="frame" x="247" y="832" width="147" height="30"/>
+                                <state key="normal" title="Export another scene"/>
+                                <connections>
+                                    <action selector="exportTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bcu-MM-i4p"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="kAc-lE-DXV" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="1HU-BF-DrJ"/>
                             <constraint firstItem="2RU-Yf-5iK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="5Ag-WE-Snf"/>
-                            <constraint firstItem="8zX-1Y-z8X" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="CFU-s2-qAl"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kAc-lE-DXV" secondAttribute="trailing" constant="20" id="CDc-JE-X5F"/>
                             <constraint firstItem="2RU-Yf-5iK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Gie-fF-vSO"/>
-                            <constraint firstItem="8zX-1Y-z8X" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="p4D-Gd-IwQ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8zX-1Y-z8X" secondAttribute="bottom" constant="20" id="pJ4-Wh-tzS"/>
                             <constraint firstItem="2RU-Yf-5iK" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ypd-il-8BG"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="containerView1" destination="2RU-Yf-5iK" id="hFu-jr-V1W"/>
-                        <outlet property="containerView2" destination="8zX-1Y-z8X" id="1P3-yM-4b7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
