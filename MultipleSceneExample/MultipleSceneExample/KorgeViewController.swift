@@ -43,6 +43,7 @@ class KorgeViewController: GLKViewController {
   }
   
   override func glkView(_ view: GLKView, drawIn rect: CGRect) {
+    //view.bindDrawable()
     if !self.isInitialized {
       self.isInitialized = true
       self.gameWindow2?.gameWindow.dispatchInitEvent()
@@ -58,6 +59,7 @@ class KorgeViewController: GLKViewController {
     }
     
     self.gameWindow2?.gameWindow.frame()
+    
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

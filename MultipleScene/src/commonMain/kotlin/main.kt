@@ -4,12 +4,14 @@ import com.soywiz.korge.input.onClick
 import com.soywiz.korge.render.RenderContext
 import com.soywiz.korge.scene.Module
 import com.soywiz.korge.scene.Scene
+import com.soywiz.korge.scene.SceneContainer
 import com.soywiz.korge.tween.*
 import com.soywiz.korge.view.*
 import com.soywiz.korim.bitmap.Bitmap
 import com.soywiz.korim.bitmap.NativeImage
 import com.soywiz.korim.bitmap.slice
 import com.soywiz.korim.color.Colors
+import com.soywiz.korim.color.RGBA
 import com.soywiz.korim.color.RgbaArray
 import com.soywiz.korim.format.*
 import com.soywiz.korinject.AsyncInjector
@@ -35,18 +37,10 @@ object MyModule : Module() {
 class MyDependency(val value: String)
 
 class MyScene1(val myDependency: MyDependency) : Scene() {
-	var imageNode: Image? = null
-
 	override suspend fun Container.sceneInit() {
 		text("MyScene1: ${myDependency.value}") { filtering = false }
-		imageNode = rsImage(resourcesVfs["korge.png"].readBitmap()) {
-			onClick {
-				if (imageRohan == null) {
-					imageRohan = imageNode
-				}
-				println("imageRohan connected")
-			}
-		}
+		imageRohan = rsImage(resourcesVfs["korge.png"].readBitmap())
+		circleRohan = circle(50.0 , Colors.GREEN)
 	}
 }
 
@@ -85,5 +79,40 @@ inline fun Container.rsImage(
 ): Image = RSImage(texture).addTo(this, callback)
 
 var imageRohan: Image? = null
+var circleRohan : Circle? = null
 
 var mayank: (() -> RSNativeImage?)? = null
+
+fun switchToCircle(boolean: Boolean) {
+	circleRohan?.visible = boolean
+	imageRohan?.visible = !boolean
+}
+
+
+
+
+
+
+
+//var scene1 : Scene ? = null
+//var scene2 : Scene ? = null
+//var container1 : SceneContainer ? = null
+//var container2 : SceneContainer ? = null
+//
+//class LSScene1(val myDependency: MyDependency) : Scene() {
+//
+//	init {
+//	    scene1 = this
+//		container1 = this.sceneContainer
+//	}
+//	override suspend fun Container.sceneInit() {
+//		val circleNode = circle(50.0 , Colors.GREEN)
+//	}
+//}
+//
+//class LSScene2(val myDependency: MyDependency) : Scene() {
+//
+//	override suspend fun Container.sceneInit() {
+//		val circleNode = circle(50.0 , Colors.RED)
+//	}
+//}
