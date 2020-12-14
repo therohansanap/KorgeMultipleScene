@@ -43,7 +43,7 @@ class KorgeViewController: GLKViewController {
   }
   
   override func glkView(_ view: GLKView, drawIn rect: CGRect) {
-    //view.bindDrawable()
+    print(#function)
     if !self.isInitialized {
       self.isInitialized = true
       self.gameWindow2?.gameWindow.dispatchInitEvent()

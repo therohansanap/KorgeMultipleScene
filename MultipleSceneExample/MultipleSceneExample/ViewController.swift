@@ -39,7 +39,6 @@ class ViewController: UIViewController {
   
   var nativeImages = [GLuint: RSNativeImage]()
   var reshape = true
-  var isInitialized = false
   var gameWindow2: MyIosGameWindow2?
   var rootGameMain: RootGameMain?
   
@@ -52,7 +51,6 @@ class ViewController: UIViewController {
     assetReader.add(trackOutput)
     assetReader.startReading()
     
-    self.isInitialized = false
     self.reshape = true
     self.gameWindow2 = MyIosGameWindow2()
     self.rootGameMain = RootGameMain()
@@ -100,11 +98,16 @@ class ViewController: UIViewController {
   
   
   @IBAction func exportTapped(_ sender: UIButton) {
-    genOffscreenBuffers()
+    //genOffscreenBuffers()
     print("Exporting ....")
     videoRecorder?.startRecording()
     timer?.invalidate()
     MainKt.mayank = getVideoFrame
+    MainKt.auxStage?.renderCompleteCallback = {
+      print("writeframe:\(self.time)")
+      self.videoRecorder?.writeFrame(time: self.time)
+      return 0
+    }
     timer = Timer.scheduledTimer(timeInterval: 0.033333333,
                                  target: self,
                                  selector: #selector(timerInvocation),
@@ -114,14 +117,12 @@ class ViewController: UIViewController {
   
   @objc func timerInvocation() {
     if time < 5 {
-      MainKt.switchToCircle(boolean: false)
-      bindOffscreenBuffers()
+      MainKt.auxStage?.enableAuxStage = true
+      print(time , MainKt.auxStage!.enableAuxStage)
       renderFrame()
-      videoRecorder?.writeFrame(time: time)
-      unBindOffscreenBuffers()
-      MainKt.switchToCircle(boolean: true)
+      print(time , MainKt.auxStage!.enableAuxStage)
       time += 0.034
-    }else {
+    } else {
       timer?.invalidate()
       videoRecorder?.endRecording {
         print("Check video file")
@@ -130,12 +131,6 @@ class ViewController: UIViewController {
   }
   
   func renderFrame() {
-    if !self.isInitialized {
-      self.isInitialized = true
-      self.gameWindow2?.gameWindow.dispatchInitEvent()
-      self.rootGameMain?.runMain()
-      self.reshape = true;
-    }
     
 //    let width = self.view.bounds.size.width * self.view.contentScaleFactor
 //    let height = self.view.bounds.size.height * self.view.contentScaleFactor

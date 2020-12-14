@@ -1,4 +1,5 @@
 import com.soywiz.klock.seconds
+import com.soywiz.korag.AG
 import com.soywiz.korge.*
 import com.soywiz.korge.input.onClick
 import com.soywiz.korge.render.RenderContext
@@ -38,9 +39,13 @@ class MyDependency(val value: String)
 
 class MyScene1(val myDependency: MyDependency) : Scene() {
 	override suspend fun Container.sceneInit() {
-		text("MyScene1: ${myDependency.value}") { filtering = false }
-		imageRohan = rsImage(resourcesVfs["korge.png"].readBitmap())
+		text("MyScene1: ${myDependency.value}")
+		val imageRohan = RSImage(resourcesVfs["korge.png"].readBitmap())
+		views.auxStage.addChild(imageRohan)
 		circleRohan = circle(50.0 , Colors.GREEN)
+		auxStage = views.auxStage
+		buffer = views.auxRenderBuffer
+		agm = views.ag
 	}
 }
 
@@ -78,15 +83,12 @@ inline fun Container.rsImage(
 	texture: Bitmap, anchorX: Double = 0.0, anchorY: Double = 0.0, callback: @ViewDslMarker Image.() -> Unit = {}
 ): Image = RSImage(texture).addTo(this, callback)
 
-var imageRohan: Image? = null
 var circleRohan : Circle? = null
+var auxStage : Stage ? = null
+var buffer : AG.RenderBuffer ? = null
+var agm : AG ? = null
 
 var mayank: (() -> RSNativeImage?)? = null
-
-fun switchToCircle(boolean: Boolean) {
-	circleRohan?.visible = boolean
-	imageRohan?.visible = !boolean
-}
 
 
 
