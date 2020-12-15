@@ -43,7 +43,6 @@ class KorgeViewController: GLKViewController {
   }
   
   override func glkView(_ view: GLKView, drawIn rect: CGRect) {
-    print(#function)
     if !self.isInitialized {
       self.isInitialized = true
       self.gameWindow2?.gameWindow.dispatchInitEvent()
@@ -57,6 +56,9 @@ class KorgeViewController: GLKViewController {
       self.reshape = false
       self.gameWindow2?.gameWindow.dispatchReshapeEvent(x: 0, y: 0, width: Int32(width), height: Int32(height))
     }
+    
+    MainKt.exportPipeline?.isActive = false
+    MainKt.previewPipeline?.isActive = true
     
     self.gameWindow2?.gameWindow.frame()
     

@@ -41,11 +41,11 @@ class MyScene1(val myDependency: MyDependency) : Scene() {
 	override suspend fun Container.sceneInit() {
 		text("MyScene1: ${myDependency.value}")
 		val imageRohan = RSImage(resourcesVfs["korge.png"].readBitmap())
-		views.auxStage.addChild(imageRohan)
-		circleRohan = circle(50.0 , Colors.GREEN)
-		auxStage = views.auxStage
-		buffer = views.auxRenderBuffer
-		agm = views.ag
+		views.exportPipeline.stage.addChild(imageRohan)
+		previewPipeline = views.previewPipeline
+		exportPipeline = views.exportPipeline
+		circleRohan = circle(100.0 , Colors.RED)
+
 	}
 }
 
@@ -84,12 +84,10 @@ inline fun Container.rsImage(
 ): Image = RSImage(texture).addTo(this, callback)
 
 var circleRohan : Circle? = null
-var auxStage : Stage ? = null
-var buffer : AG.RenderBuffer ? = null
-var agm : AG ? = null
-
 var mayank: (() -> RSNativeImage?)? = null
 
+var previewPipeline : Pipeline ? = null
+var exportPipeline : Pipeline? = null
 
 
 

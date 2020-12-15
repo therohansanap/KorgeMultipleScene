@@ -103,7 +103,7 @@ class ViewController: UIViewController {
     videoRecorder?.startRecording()
     timer?.invalidate()
     MainKt.mayank = getVideoFrame
-    MainKt.auxStage?.renderCompleteCallback = {
+    MainKt.exportPipeline?.renderCompleteCallback = {
       print("writeframe:\(self.time)")
       self.videoRecorder?.writeFrame(time: self.time)
       return 0
@@ -117,10 +117,9 @@ class ViewController: UIViewController {
   
   @objc func timerInvocation() {
     if time < 5 {
-      MainKt.auxStage?.enableAuxStage = true
-      print(time , MainKt.auxStage!.enableAuxStage)
+      MainKt.exportPipeline?.isActive = true
+      MainKt.previewPipeline?.isActive = false
       renderFrame()
-      print(time , MainKt.auxStage!.enableAuxStage)
       time += 0.034
     } else {
       timer?.invalidate()
